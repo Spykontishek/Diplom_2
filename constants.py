@@ -1,0 +1,11 @@
+class Constants:
+    URL = 'https://stellarburgers.nomoreparties.site/'
+    EMAIL = 'test-spy@yandex.ru'
+    PASSWORD = 'password'
+    NAME = 'Username'
+    REG_PATH = 'api/auth/register'
+    AUTH_PATH = 'api/auth/login'
+    CHANGE_PATH = 'api/auth/user'
+    DEL_PATH = 'api/auth/user'
+    CREATE_ORDER_PATH = 'api/orders'
+    GET_ORDERS_PATH = 'api/orders'
