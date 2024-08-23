@@ -1,13 +1,11 @@
 import requests
-from constants import Constants
+from data import Data
 
 class Helpers:
-    accessToken = None
-
-    def delete_user(self, accessToken):
-        self.accessToken = accessToken
-        headers={'Authorization': accessToken}
-        requests.delete(Constants.URL+Constants.DEL_PATH, headers = headers)
+    def delete_user(self, token):
+        self.token = token
+        headers={'Authorization': token}
+        requests.delete(Data.URL+Data.DEL_PATH, headers = headers)
 
 
 

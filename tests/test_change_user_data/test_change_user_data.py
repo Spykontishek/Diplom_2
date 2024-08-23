@@ -4,6 +4,7 @@ import requests
 import json
 from constants import Constants
 from conftest import reg
+from data import Data
 
 
 
@@ -23,7 +24,7 @@ class TestChangeUserData():
             'Content-Type': 'application/json',
             'Authorization': token
         }
-        response = requests.patch(Constants.URL+Constants.CHANGE_PATH, data=payload_string, headers=headers)
+        response = requests.patch(Data.URL+Data.CHANGE_PATH, data=payload_string, headers=headers)
         r = response.json()
         assert r['success'] == True
         assert response.status_code == 200
@@ -43,7 +44,7 @@ class TestChangeUserData():
         headers = {
             'Content-Type': 'application/json'
         }
-        response = requests.patch(Constants.URL+Constants.CHANGE_PATH, data=payload_string, headers=headers)
-        assert '"message":"You should be authorised"' in response.text
+        response = requests.patch(Data.URL+Data.CHANGE_PATH, data=payload_string, headers=headers)
+        assert Data.AUTH_ERROR_MASSAGE in response.text
         assert response.status_code == 401
 

@@ -2,9 +2,8 @@ import pytest
 import allure
 import requests
 import json
-from constants import Constants
-from helpers.helpers import Helpers
 from conftest import reg
+from data import Data
 
 class TestCreateOrder:
     token = None
@@ -20,7 +19,7 @@ class TestCreateOrder:
             'Content-Type': 'application/json',
             'Authorization': token
         }
-        response = requests.post(Constants.URL+Constants.CREATE_ORDER_PATH, data=payload_string, headers=headers)
+        response = requests.post(Data.URL+Data.CREATE_ORDER_PATH, data=payload_string, headers=headers)
         assert 'owner' in response.text
         assert response.status_code == 200
 
@@ -35,7 +34,7 @@ class TestCreateOrder:
         headers = {
             'Content-Type': 'application/json'
         }
-        response = requests.post(Constants.URL + Constants.CREATE_ORDER_PATH, data=payload_string, headers=headers)
+        response = requests.post(Data.URL + Data.CREATE_ORDER_PATH, data=payload_string, headers=headers)
         r = response.json()
         assert r['success'] == True
         assert response.status_code == 200
@@ -50,7 +49,7 @@ class TestCreateOrder:
         headers = {
             'Content-Type': 'application/json'
         }
-        response = requests.post(Constants.URL + Constants.CREATE_ORDER_PATH, data=payload_string, headers=headers)
+        response = requests.post(Data.URL + Data.CREATE_ORDER_PATH, data=payload_string, headers=headers)
         assert response.status_code == 500
 
     @allure.title('Позитивная проверка создания заказа под неавторизованным аккаунтом')
@@ -63,7 +62,7 @@ class TestCreateOrder:
         headers = {
             'Content-Type': 'application/json'
         }
-        response = requests.post(Constants.URL + Constants.CREATE_ORDER_PATH, data=payload_string, headers=headers)
+        response = requests.post(Data.URL + Data.CREATE_ORDER_PATH, data=payload_string, headers=headers)
         assert 'owner' not in response.text
         assert response.status_code == 200
 
@@ -78,8 +77,8 @@ class TestCreateOrder:
         headers = {
             'Content-Type': 'application/json'
         }
-        response = requests.post(Constants.URL+Constants.CREATE_ORDER_PATH, data=payload_string, headers=headers)
-        assert '"message":"Ingredient ids must be provided"' in response.text
+        response = requests.post(Data.URL+Data.CREATE_ORDER_PATH, data=payload_string, headers=headers)
+        assert Data.EMPTY_ID_OF_INGREDIENT_MASSAGE in response.text
         assert response.status_code == 400
 
 

@@ -40,6 +40,6 @@ class TestAutorizationUser():
             'Content-Type': 'application/json'
         }
         response = requests.post(Data.URL+Data.AUTH_PATH, data=payload_string, headers=headers)
-        assert '"message":"email or password are incorrect"' in response.text
+        assert Data.WRONG_EMAIL_OR_PASSWORD_MASSAGE in response.text
         assert response.status_code == 401
 

@@ -6,6 +6,7 @@ from constants import Constants
 from helpers.helpers import Helpers
 from conftest import reg
 from faker import Faker
+from data import Data
 
 
 faker = Faker()
@@ -26,7 +27,7 @@ class TestCreateUser():
         headers = {
             'Content-Type': 'application/json'
         }
-        response = requests.post(Constants.URL+Constants.REG_PATH, data=payload_string, headers=headers)
+        response = requests.post(Data.URL+Data.REG_PATH, data=payload_string, headers=headers)
         r = response.json()
         self.token = r['accessToken']
         assert r['success'] == True
@@ -49,8 +50,8 @@ class TestCreateUser():
         headers = {
             'Content-Type': 'application/json'
         }
-        response = requests.post(Constants.URL + Constants.REG_PATH, data=payload_string, headers=headers)
-        assert '"message":"User already exists"' in response.text
+        response = requests.post(Data.URL + Data.REG_PATH, data=payload_string, headers=headers)
+        assert Data.REG_EXISTENT_USER_MASSAGE in response.text
         assert response.status_code == 403
 
 
@@ -72,8 +73,8 @@ class TestCreateUser():
         headers = {
             'Content-Type': 'application/json'
         }
-        response = requests.post(Constants.URL+Constants.REG_PATH, data=payload_string, headers=headers)
-        assert '"message":"Email, password and name are required fields"' in response.text
+        response = requests.post(Data.URL+Data.REG_PATH, data=payload_string, headers=headers)
+        assert Data.MISSED_REQUIRED_FIELD_MASSAGE in response.text
         assert response.status_code == 403
 
 

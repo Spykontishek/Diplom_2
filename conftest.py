@@ -2,6 +2,7 @@ import pytest
 from constants import Constants
 import requests
 import json
+from data import Data
 @pytest.fixture
 def reg():
     payload = {
@@ -13,10 +14,10 @@ def reg():
     headers = {
         'Content-Type': 'application/json'
     }
-    response = requests.post(Constants.URL+Constants.REG_PATH, data=payload_string, headers=headers)
+    response = requests.post(Data.URL+Data.REG_PATH, data=payload_string, headers=headers)
     r = response.json()
     token = r['accessToken']
     yield token
     headers = {'Authorization': token}
-    requests.delete(Constants.URL+Constants.DEL_PATH, headers=headers)
+    requests.delete(Data.URL+Data.DEL_PATH, headers=headers)
 

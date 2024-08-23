@@ -1,4 +1,4 @@
 class Constants:
-    EMAIL = 'test-ffa@yandex.ru'
+    EMAIL = 'test-qwe@yandex.ru'
     PASSWORD = 'password'
     NAME = 'Username'
