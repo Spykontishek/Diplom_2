@@ -4,16 +4,15 @@ import requests
 import json
 from constants import Constants
 from conftest import reg
-from helpers.helpers import Helpers
+
 
 
 class TestChangeUserData():
-    accessToken = None
+    token = None
     @allure.title('Позитивная проверка изменения данных юзера под авторизованным аккаунтом')
     @allure.description('Запрос должен вернуть правильный код и тело ответа')
-    @pytest.mark.usefixtures('reg')
     def tests_change_user_data_with_authorization_success(self, reg):
-        self.accessToken = reg
+        token = reg
         payload = {
         "email": Constants.EMAIL,
         "password": Constants.PASSWORD,
@@ -22,13 +21,29 @@ class TestChangeUserData():
         payload_string = json.dumps(payload)
         headers = {
             'Content-Type': 'application/json',
-            'Authorization': self.accessToken
+            'Authorization': token
         }
         response = requests.patch(Constants.URL+Constants.CHANGE_PATH, data=payload_string, headers=headers)
         r = response.json()
         assert r['success'] == True
         assert response.status_code == 200
 
-    def teardown_method(self):
-        helper = Helpers()
-        helper.delete_user(self.accessToken)
+
+
+
+    @allure.title('Негативная проверка изменения данных юзера под неавторизованным аккаунтом')
+    @allure.description('Запрос должен вернуть ошибку и правильный код твета')
+    def tests_change_user_data_without_authorization_error(self, reg):
+        payload = {
+        "email": Constants.EMAIL,
+        "password": Constants.PASSWORD,
+        "name": "Usernam"
+        }
+        payload_string = json.dumps(payload)
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        response = requests.patch(Constants.URL+Constants.CHANGE_PATH, data=payload_string, headers=headers)
+        assert '"message":"You should be authorised"' in response.text
+        assert response.status_code == 401
+
