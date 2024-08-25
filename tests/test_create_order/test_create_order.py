@@ -6,7 +6,6 @@ from conftest import reg
 from data import Data
 
 class TestCreateOrder:
-    token = None
     @allure.title('Позитивная проверка создания заказа под авторизованным аккаунтом')
     @allure.description('Запрос должен вернуть правильный код и тело ответа')
     def test_create_order_with_authorization_success(self, reg):

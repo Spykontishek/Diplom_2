@@ -9,7 +9,6 @@ from data import Data
 
 
 class TestChangeUserData():
-    token = None
     @allure.title('Позитивная проверка изменения данных юзера под авторизованным аккаунтом')
     @allure.description('Запрос должен вернуть правильный код и тело ответа')
     def tests_change_user_data_with_authorization_success(self, reg):

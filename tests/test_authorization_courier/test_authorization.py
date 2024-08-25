@@ -9,7 +9,6 @@ from conftest import reg
 
 
 class TestAutorizationUser():
-    token = None
     @allure.title('Позитивная проверка авторизации юзера под существующим аккаунтом')
     @allure.description('Запрос должен вернуть правильный код и тело ответа')
     def test_authorization_user_with_exiting_account_success(self, reg):
